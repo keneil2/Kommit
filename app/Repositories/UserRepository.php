@@ -1,6 +1,7 @@
 <?php 
 namespace App\Repositories;
 use App\Http\Requests\User\NewUserRequest;
+use App\Models\User;
 use App\Repositories\Interfaces\UserInterface;
 use Illuminate\Support\Facades\Hash;
 

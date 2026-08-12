@@ -4,6 +4,7 @@ namespace App\Http\Requests\User;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules\Password;
 
 class NewUserRequest extends FormRequest
@@ -13,7 +14,7 @@ class NewUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,10 +24,11 @@ class NewUserRequest extends FormRequest
      */
     public function rules(): array
     {
+        Log::debug(json_encode($this->all()));
         return [
             "email" => "required|email|string",
-            "password" => ["required","string",Password::min(8)->letters()->symbols()->numbers()],
-            "password_confirmation" => "required|confirmed"
+            "password" => ["required","string",Password::min(8)->letters()->symbols()->numbers(),'confirmed'],
+            "password_confirmation" => "required"
         ];
     }
 }
