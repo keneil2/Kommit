@@ -9,6 +9,7 @@ use Illuminate\Validation\Rules\Password;
 
 class NewUserRequest extends FormRequest
 {
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,9 +25,10 @@ class NewUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        Log::debug(json_encode($this->all()));
+        
         return [
-            "email" => "required|email|string",
+            "name"=> "required|string",
+            "email" => "required|email|string|unique:users,email",
             "password" => ["required","string",Password::min(8)->letters()->symbols()->numbers(),'confirmed'],
             "password_confirmation" => "required"
         ];
