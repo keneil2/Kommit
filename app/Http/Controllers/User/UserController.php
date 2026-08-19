@@ -17,6 +17,8 @@ public  $userCreationAction;
    }
   public function store(NewUserRequest $request,UserRepository $userRepo){
      $this->userCreationAction->handle($request,$userRepo);
+     $email=$request->email;
+     return redirect()->to("/email-verification?email=".urlencode($email));
   }
 }
 
