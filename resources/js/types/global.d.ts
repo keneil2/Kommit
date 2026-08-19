@@ -21,3 +21,13 @@ declare module 'vue' {
 declare module '@inertiajs/core' {
     interface PageProps extends InertiaPageProps, AppPageProps {}
 }
+
+
+interface AuthData{
+    email:string,
+    password:string,
+    signInactive:boolean,
+    password_confirmation?:string
+}
+
+
