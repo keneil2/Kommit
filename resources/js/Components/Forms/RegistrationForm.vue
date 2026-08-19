@@ -33,7 +33,6 @@
 
 </template>
 <script lang="ts" setup>
-import { AuthData } from '@/types/global';
 import Input from '../ui/Input.vue';
 import Button from '../ui/Button/Button.vue';
 import { Form, useForm } from '@inertiajs/vue3';
@@ -50,9 +49,6 @@ const form = useForm<{
   password: '',
   password_confirmation: '',
 });
-const props=defineProps<{
-    data:AuthData
-}>();
 
 function submit(){
   form.post("/register")
