@@ -1,5 +1,10 @@
 <template>
    <div>
+    <div>
+        <label>Username</label>
+      <Input v-model="form.name"  class="w-full mb-3"/>
+      <FormError v-if="form.errors.name" :error="form.errors.name"/>
+      </div>
       <div>
         <label>Email</label>
       <Input v-model="form.email"  class="w-full mb-3"/>
@@ -34,11 +39,13 @@ import Button from '../ui/Button/Button.vue';
 import { Form, useForm } from '@inertiajs/vue3';
 import FormError from './FormError.vue';
 const form = useForm<{
+  name:string,
   email?:string, 
   password?:string, 
   password_confirmation:string, 
 
 }>({
+  name:"",
   email: '',
   password: '',
   password_confirmation: '',
