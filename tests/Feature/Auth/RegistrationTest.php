@@ -18,10 +18,12 @@ test("assert registration page can be rendered",function(){
 test('assert user can be registered', function () {
     $this->actingAsGuest();
     $response = $this->post('/register',[
+    "name"=>"tester1",
     "email"=>"test@gmail.com",
     "password"=>"test@1234",
     "password_confirmation"=>"test@1234"
     ]);
+    $response->assertSessionHasNoErrors();
     $response->assertStatus(302);
 });
 
