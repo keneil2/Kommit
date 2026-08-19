@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Actions\Auth\LoginAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
@@ -13,17 +14,10 @@ class CurrentSessionController extends Controller
 {
 
     public function show(){
-     return Inertia::render('Login');
+     return Inertia::render('Auth');
     }
-    public function store(LoginRequest $request){
-     if(Auth::attempt(['email','password'])){
-         return route("dashboard");
-     }else{
-       return back()->withErrors([
-           "auth_error"=>"The provided credentials do not match our records."
-       ]);
-       
-     }
+    public function store(LoginRequest $request,LoginAction $action){
+        return $action->handle($request);
     }
 
     public function destroy(Request $request){
