@@ -5,7 +5,7 @@ use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware("guest")->group(function(){
-Route::get("/login",[CurrentSessionController::class,"show"]);
+Route::get("/login",[CurrentSessionController::class,"show"])->name("login");
 Route::post("/auth",[CurrentSessionController::class,"store"]);  
 Route::post("/register",[UserController::class,"store"]);
 });

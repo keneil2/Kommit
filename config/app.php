@@ -123,4 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    "remember_token_ttl"=>env("REMEMBER_TOKEN_TTL",now()->days(30))
+
 ];
