@@ -16,6 +16,7 @@ test('assert login return use to dashboard route if password is correct', functi
         "password"=>"test@1234"
     ]);
     $response->assertStatus(302);
+    $response->assertRedirect("/dashboard");
     $response->assertSessionHasNoErrors();
 });
 
@@ -59,3 +60,33 @@ $this->actingAsGuest();
     $response->assertRedirect("/email-verification?email=test455%40gmail.com");
     
 });
+
+test("assert that if the user logs in five times they receive a 429 error message", function () {
+    $limit=10;  
+    for($i = 0; $i <= $limit; $i++){
+        $this->post("/auth",[
+        "email"=>"test4@gmail.com",
+        "password"=>"test@"
+        ]);
+      }
+       $response = $this->post("/auth",[
+        "email"=>"test455@gl.com",
+        "password"=>"test@1"
+        ]);
+
+        $response->assertStatus(429);
+});
+
+// this is configurage from the env so I can test that the ttl for rememberme Cookie is correct
+test("assert that remember_me token resets after 5 seconds",function(){
+    $this->post("/auth",[
+        "email"=>"test455@gmail.com",
+        "password"=>"test@1234"
+        ]);
+        sleep(5);
+        $response = $this->get("/dashboard");
+        $response->assertRedirect('/login');
+        $response->assertStatus(302);
+});
+
+
